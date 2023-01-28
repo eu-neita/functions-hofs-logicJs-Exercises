@@ -1,10 +1,10 @@
 const data = require('../data/zoo_data');
 
 const countAnimals = (animal) => {
-  if (animal === null || animal === undefined) {
+  if (animal === undefined) {
     const u = {};
-    data.species.map((valores) => {
-    u[valores.name] = valores.residents.length;
+    data.species.forEach((valores) => {
+      u[valores.name] = valores.residents.length;
     });
     return u;
   }
@@ -20,5 +20,5 @@ const countAnimals = (animal) => {
   }
   return data.species.find((animaisinhos) => animaisinhos.name === animal.species).residents.length;
 };
-console.log(countAnimals());
+
 module.exports = countAnimals;
