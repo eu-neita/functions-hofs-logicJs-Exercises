@@ -3,7 +3,9 @@ const data = require('../data/zoo_data');
 const countAnimals = (animal) => {
   if (animal === null || animal === undefined) {
     const u = {};
-    data.species.map((valores) => eval(`u.${valores.name}= ${valores.residents.length}`));
+    data.species.map((valores) => {
+    u[valores.name] = valores.residents.length;
+    });
     return u;
   }
   if (animal.sex) {
@@ -18,5 +20,5 @@ const countAnimals = (animal) => {
   }
   return data.species.find((animaisinhos) => animaisinhos.name === animal.species).residents.length;
 };
-// console.log(countAnimals());
+console.log(countAnimals());
 module.exports = countAnimals;
