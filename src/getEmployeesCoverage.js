@@ -1,6 +1,6 @@
 const data = require('../data/zoo_data');
 
-const veryffyReturn = (nameOrId) => {
+const formatEmployeesCoverage = (nameOrId) => {
   const dataEm = data.employees.find((per) => per.firstName === nameOrId.name
   || per.lastName === nameOrId.name || nameOrId.id === per.id);
   const { firstName, lastName, responsibleFor } = dataEm;
@@ -18,12 +18,12 @@ const veryffyReturn = (nameOrId) => {
 
 const getEmployeesCoverage = (name) => {
   if (name === undefined) {
-    return data.employees.map((all) => veryffyReturn(all));
+    return data.employees.map((all) => formatEmployeesCoverage(all));
   }
   const dataEm = data.employees.find((per) => per.firstName === name.name
   || per.lastName === name.name || name.id === per.id);
   if (dataEm === undefined) throw new Error('Informações inválidas');
-  return veryffyReturn(name);
+  return formatEmployeesCoverage(name);
 };
-console.log(getEmployeesCoverage());
+
 module.exports = getEmployeesCoverage;
