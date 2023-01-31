@@ -1,38 +1,34 @@
 const data = require('../data/zoo_data');
 
-const hoursFormat = () => {
-  const { hours } = data;
-  const { species } = data;
-  let hoursReturn = {};
-  Object.keys(hours).forEach((keys) => {
-    hours[keys] = {
-      officeHour: `Open from ${hours[keys].open}am until ${hours[keys].close}pm`,
-      exhibition: [],
-    };
-    hours[keys].exhibition = [];
-    species.forEach((element) => {
-      element.availability.forEach((ked) => {
-        if (ked === keys) hours[keys].exhibition.push(element.name);
-      });
+const { hours, species } = data;
+const obj = JSON.parse(JSON.stringify(hours));
+Object.keys(obj).forEach((el) => {
+  obj[el] = { officeHour: `Open from ${hours[el].open}am until ${hours[el].close}pm`,
+    exhibition: [],
+  };
+  obj[el].exhibition = [];
+  species.forEach((element) => {
+    element.availability.forEach((ked) => {
+      if (ked === el) obj[el].exhibition.push(element.name);
     });
-    hoursReturn = hours;
   });
-  hoursReturn.Monday = { officeHour: 'CLOSED', exhibition: 'The zoo will be closed!' };
-  return hoursReturn;
-};
+});
+obj.Monday = { exhibition: 'The zoo will be closed!', officeHour: 'CLOSED' };
 
 const getSchedule = (scheduleTarget) => {
-  const { species } = data;
-  let returnSpeciesOrMondey = {
-    Monday: { exhibition: 'The zoo will be closed!', officeHour: 'CLOSED' } };
-  species.forEach((key) => {
-    if (scheduleTarget === key.name) {
-      returnSpeciesOrMondey = key.availability;
+  const returnSpecies = species.find((key) => scheduleTarget === key.name);
+  const verifyAnimal = species.some((animal) => animal.name === scheduleTarget);
+  const verifydays = Object.keys(obj).some((days) => days === scheduleTarget);
+  let vasc = {};
+  Object.keys(obj).forEach((keyd) => {
+    if (keyd === scheduleTarget) {
+      vasc = { [keyd]: obj[keyd] };
     }
   });
-  if (scheduleTarget === undefined) return hoursFormat();
-  if (scheduleTarget === 'Monday') return returnSpeciesOrMondey;
-  return returnSpeciesOrMondey;
+  if (verifyAnimal) return returnSpecies.availability;
+  if (verifydays) return vasc;
+  return obj;
 };
-console.log(getSchedule());
+
+console.log(getSchedule('lions'));
 module.exports = getSchedule;
