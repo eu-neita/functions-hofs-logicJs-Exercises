@@ -28,15 +28,15 @@ describe('Testes da função getOpeningHours', () => {
     expect(() => getOpeningHours('Thu', '09:00-AM')).toThrow(expected);
   });
   it('testando erros 2', () => {
-    const expected = new Error('The abbreviation must be \'AM\' or \'PM\'');
-    expect(() => getOpeningHours('Friday', '09:00-ZM')).toThrow(expected);
+    const expected2 = new Error('The abbreviation must be \'AM\' or \'PM\'');
+    expect(() => getOpeningHours('Friday', '09:00-ZM')).toThrow(expected2);
   });
   it('testando erros 3', () => {
-    const expected = new Error('The hour should represent a number');
-    expect(() => getOpeningHours('Friday', 'C9:00-AM')).toThrow(expected);
+    const expected3 = new Error('The hour should represent a number');
+    expect(() => getOpeningHours('Friday', 'C9:00-AM')).toThrow(expected3);
   });
   it('testando erros 4', () => {
-    const expected = new Error('The minutes should represent a number');
-    expect(() => getOpeningHours('Friday', '09:c0-AM')).toThrow(expected);
+    const expected4 = new Error('The minutes should represent a number');
+    expect(() => getOpeningHours('Friday', '09:c0-AM')).toThrow(expected4);
   });
 });
