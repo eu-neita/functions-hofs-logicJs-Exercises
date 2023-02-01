@@ -23,9 +23,8 @@ describe('Testes da função getOpeningHours', () => {
   it('testando se apasado os parametro corretamente o retorno é o esperado The zoo is closed com o horario diferente', () => {
     expect(getOpeningHours('Wednesday', '09:00-PM')).toBe('The zoo is closed');
   });
-  // it('testando erro', () => {
-  //   const actual = getOpeningHours('Thu', '09:00-AM');
-  //   const expected = new Error('The day must be valid. Example: Monday');
-  //   expect(actual).toThrow(expected);
-  // });
+  it('testando erro', () => {
+    const expected = new Error('The day must be valid. Example: Monday');
+    expect(() => getOpeningHours('Thu', '09:00-AM')).toThrow(expected);
+  });
 });
