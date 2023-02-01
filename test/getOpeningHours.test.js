@@ -23,8 +23,20 @@ describe('Testes da função getOpeningHours', () => {
   it('testando se apasado os parametro corretamente o retorno é o esperado The zoo is closed com o horario diferente', () => {
     expect(getOpeningHours('Wednesday', '09:00-PM')).toBe('The zoo is closed');
   });
-  it('testando erro', () => {
+  it('testando erros', () => {
     const expected = new Error('The day must be valid. Example: Monday');
     expect(() => getOpeningHours('Thu', '09:00-AM')).toThrow(expected);
+  });
+  it('testando erros', () => {
+    const expected = new Error('The abbreviation must be \'AM\' or \'PM\'');
+    expect(() => getOpeningHours('Friday', '09:00-ZM')).toThrow(expected);
+  });
+  it('testando erros', () => {
+    const expected = new Error('The hour should represent a number');
+    expect(() => getOpeningHours('Friday', 'C9:00-AM')).toThrow(expected);
+  });
+  it('testando erros', () => {
+    const expected = new Error('The minutes should represent a number');
+    expect(() => getOpeningHours('Friday', '09:c0-AM')).toThrow(expected);
   });
 });
